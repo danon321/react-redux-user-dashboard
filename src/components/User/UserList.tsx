@@ -12,7 +12,15 @@ function UserList() {
     dispatch(getUsers());
   }, []);
 
-  return <div>{status}</div>;
+  return (
+    <div>
+      {users.map((user) => (
+        <div key={user.id}>
+          Id: {user.id} Name: {user.name}
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default UserList;
