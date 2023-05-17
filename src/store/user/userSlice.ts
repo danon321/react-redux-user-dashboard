@@ -31,7 +31,7 @@ export const userSlice = createSlice({
         state.status = UserLoadStatus.succeeded;
         state.users = action.payload;
       })
-      .addCase(getUsers.rejected, (state, action: any) => {
+      .addCase(getUsers.rejected, (state, action: PayloadAction<string | any>) => {
         state.status = UserLoadStatus.failed;
         state.error = action.payload;
       });
