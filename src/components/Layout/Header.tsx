@@ -1,5 +1,11 @@
+import { Typography } from "@mui/material";
+
 function Header() {
-  return <h1>Dashboard</h1>;
+  return (
+    <Typography component="h1" variant="h5">
+      Dashboard
+    </Typography>
+  );
 }
 
 export default Header;
