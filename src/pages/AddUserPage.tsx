@@ -63,12 +63,12 @@ function AddUserPage() {
           <Input type="text" id="name" {...formik.getFieldProps("name")} />
           {formik.touched.name && formik.errors.name ? <div>{formik.errors.name}</div> : null}
         </div>
-        <div>
+        <div style={{ marginTop: 20 }}>
           <label htmlFor="email">Email:</label>
           <Input type="email" id="email" {...formik.getFieldProps("email")} />
           {formik.touched.email && formik.errors.email ? <div>{formik.errors.email}</div> : null}
         </div>
-        <ButtonGroup variant="contained">
+        <ButtonGroup variant="contained" style={{ marginTop: 20 }}>
           <Button onClick={() => navigate("/")} color="error">
             Cancel
           </Button>
