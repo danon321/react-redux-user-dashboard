@@ -27,10 +27,7 @@ function UserTable() {
   const { users, error, status } = useAppSelector(getUserState);
 
   useEffect(() => {
-    if (status === UserLoadStatus.idle) {
-      console.log("fetch users");
-      dispatch(getUsers());
-    }
+    if (status === UserLoadStatus.idle) dispatch(getUsers());
   }, []);
 
   if (status === UserLoadStatus.failed) return <div>{error}</div>;
