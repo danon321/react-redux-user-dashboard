@@ -1,9 +1,9 @@
-import UserList from "../components/User/UserList";
+import UserTable from "../components/User/UserTable";
 
 function HomePage() {
   return (
     <div>
-      <UserList />
+      <UserTable />
     </div>
   );
 }
