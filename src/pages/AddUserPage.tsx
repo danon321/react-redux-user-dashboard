@@ -55,7 +55,7 @@ function AddUserPage() {
   });
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <h1>Form</h1>
       <form onSubmit={formik.handleSubmit}>
         <div>
