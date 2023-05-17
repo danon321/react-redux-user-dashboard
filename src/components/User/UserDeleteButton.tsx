@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 import { Box, Button, ButtonGroup, Modal } from "@mui/material";
+import { useAppDispatch } from "../../store/hooks";
+import { deleteUser } from "../../store/user/userSlice";
 
 interface UserDeleteButtonProps {
   userId: number;
@@ -24,12 +26,17 @@ const style = {
 function UserDeleteButton(props: UserDeleteButtonProps) {
   const { userId, userName } = props;
   const [open, setOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const deleteUserHandler = () => {
+    dispatch(deleteUser(userId));
   };
 
   return (
@@ -51,7 +58,7 @@ function UserDeleteButton(props: UserDeleteButtonProps) {
             <Button variant="contained" onClick={handleClose}>
               Cancel
             </Button>
-            <Button variant="contained" color="error">
+            <Button variant="contained" color="error" onClick={deleteUserHandler}>
               Delete
             </Button>
           </ButtonGroup>

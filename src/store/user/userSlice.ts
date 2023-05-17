@@ -21,7 +21,12 @@ const initialState: UserState = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    deleteUser(state, action: PayloadAction<number>) {
+      // const {id} = action.payload;
+      state.users = state.users.filter((user) => user.id !== action.payload);
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(getUsers.pending, (state) => {
@@ -38,7 +43,7 @@ export const userSlice = createSlice({
   },
 });
 
-// export const {} = userSlice.actions;
+export const { deleteUser } = userSlice.actions;
 
 export const getUserState = (state: RootState) => state.user;
 
