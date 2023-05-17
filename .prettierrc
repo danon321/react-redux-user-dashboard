@@ -2,6 +2,7 @@
   "semi": true,
   "tabWidth": 2,
   "printWidth": 100,
-  "jsxBracketSameLine": true,
-  "endOfLine": "auto"
+  "jsxBracketSameLine": false,
+  "endOfLine": "auto",
+  "singleAttributePerLine": false
 }
