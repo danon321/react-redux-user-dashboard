@@ -25,7 +25,7 @@ const style = {
 
 function UserDeleteButton(props: UserDeleteButtonProps) {
   const { userId, userName } = props;
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
   const handleOpen = () => {
