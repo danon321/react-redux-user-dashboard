@@ -1,11 +1,16 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getUsers } from "../../store/user/api/getUsers";
 import { getUserState } from "../../store/user/userSlice";
+
 import { UserLoadStatus } from "../../types/User";
 
+import UserTableRow from "./UserTableRow";
+
 import {
+  Button,
   Paper,
   Table,
   TableBody,
@@ -13,15 +18,19 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
-import UserDeleteButton from "./UserDeleteButton";
 
 function UserTable() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { users, error, status } = useAppSelector(getUserState);
 
   useEffect(() => {
-    if (status === UserLoadStatus.idle) dispatch(getUsers());
+    if (status === UserLoadStatus.idle) {
+      console.log("fetch users");
+      dispatch(getUsers());
+    }
   }, []);
 
   if (status === UserLoadStatus.failed) return <div>{error}</div>;
@@ -29,36 +38,40 @@ function UserTable() {
   if (status === UserLoadStatus.loading) return <div>Loading data...</div>;
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ maxWidth: 750 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Username</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>City</TableCell>
-            <TableCell>Edit</TableCell>
-            <TableCell>Delete</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {users.map((user) => (
-            <TableRow key={user.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              <TableCell>{user.id}</TableCell>
-              <TableCell>{user.name}</TableCell>
-              <TableCell>{user.username}</TableCell>
-              <TableCell>{user.email}</TableCell>
-              <TableCell>{user.address.city}</TableCell>
+    <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+      <TableContainer component={Paper} style={{ maxWidth: 1000 }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Typography sx={{ flex: "1 1 100%" }} variant="h6" id="tableTitle" component="div">
+            Users
+          </Typography>
+          <Button
+            onClick={() => navigate("/add-user")}
+            variant="contained"
+            style={{ whiteSpace: "nowrap" }}
+          >
+            Add user
+          </Button>
+        </div>
+        <Table sx={{ maxWidth: 1000 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Id</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Username</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>City</TableCell>
               <TableCell>Edit</TableCell>
-              <TableCell>
-                <UserDeleteButton userId={user.id} userName={user.name} />
-              </TableCell>
+              <TableCell>Delete</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {users.map((user) => (
+              <UserTableRow key={user.id} user={user} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   );
 }
 
