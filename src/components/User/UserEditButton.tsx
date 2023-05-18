@@ -1,7 +1,7 @@
 import { Button, ButtonGroup } from "@mui/material";
 import { useAppDispatch } from "../../store/hooks";
-import { updateUser } from "../../store/user/userSlice";
 import { User } from "../../types/User";
+import { updateUser } from "../../store/user/api/updateUser";
 
 interface UserEditButtonProps {
   editMode: boolean;
