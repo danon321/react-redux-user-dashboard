@@ -5,6 +5,7 @@ import type { RootState } from "../";
 import { getUsers } from "./api/getUsers";
 import { deleteUser } from "./api/deleteUser";
 import { updateUser } from "./api/updateUser";
+import { addUser } from "./api/addUser";
 
 import { User, UserLoadStatus } from "../../types/User";
 
@@ -23,11 +24,7 @@ const initialState: UserState = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {
-    addUser(state, action: PayloadAction<User>) {
-      state.users.push(action.payload);
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(getUsers.pending, (state) => {
@@ -41,10 +38,13 @@ export const userSlice = createSlice({
         state.status = UserLoadStatus.failed;
         state.error = action.payload;
       });
+    builder.addCase(addUser.fulfilled, (state, action: PayloadAction<User>) => {
+      state.users.push(action.payload);
+    });
     builder.addCase(deleteUser.fulfilled, (state, action: PayloadAction<number>) => {
       state.users = state.users.filter((user) => user.id !== action.payload);
     });
-    builder.addCase(updateUser.fulfilled, (state, action: PayloadAction<any>) => {
+    builder.addCase(updateUser.fulfilled, (state, action: PayloadAction<User>) => {
       const updatedUser = action.payload;
       const index = state.users.findIndex((user: User) => user.id === updatedUser.id);
       if (index !== -1) {
@@ -53,8 +53,6 @@ export const userSlice = createSlice({
     });
   },
 });
-
-export const { addUser } = userSlice.actions;
 
 export const getUserState = (state: RootState) => state.user;
 

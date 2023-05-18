@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import { User } from "../types/User";
 import useNewUserId from "../hooks/useNewUserId";
 import { useAppDispatch } from "../store/hooks";
-import { addUser } from "../store/user/userSlice";
+import { addUser } from "../store/user/api/addUser";
 
 const newUser: User = {
   address: {
