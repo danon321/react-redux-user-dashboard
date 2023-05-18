@@ -16,8 +16,10 @@ export const deleteUser = createAsyncThunk(
 
       return userID;
     } catch (error) {
-      const typedError = error as Error;
-      return rejectWithValue(typedError.message);
+      //uncomment when api will work
+      // const typedError = error as Error;
+      // return rejectWithValue(typedError.message);
+      return userID; //remove when the api will work properly
     }
   }
 );
