@@ -13,18 +13,24 @@ interface UserState {
   users: User[];
   status: UserLoadStatus;
   error: string;
+  message: string;
 }
 
 const initialState: UserState = {
   users: [],
   status: UserLoadStatus.idle,
   error: "",
+  message: "",
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setMessage(state, action: PayloadAction<string>) {
+      state.message = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(getUsers.pending, (state) => {
@@ -53,6 +59,8 @@ export const userSlice = createSlice({
     });
   },
 });
+
+export const { setMessage } = userSlice.actions;
 
 export const getUserState = (state: RootState) => state.user;
 

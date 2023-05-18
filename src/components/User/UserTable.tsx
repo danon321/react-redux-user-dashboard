@@ -24,7 +24,7 @@ import {
 function UserTable() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { users, error, status } = useAppSelector(getUserState);
+  const { users, error, status, message } = useAppSelector(getUserState);
 
   useEffect(() => {
     if (status === UserLoadStatus.idle) dispatch(getUsers());
@@ -35,40 +35,43 @@ function UserTable() {
   if (status === UserLoadStatus.loading) return <div>Loading data...</div>;
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
-      <TableContainer component={Paper} style={{ maxWidth: 1000 }}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography sx={{ flex: "1 1 100%" }} variant="h6" id="tableTitle" component="div">
-            Users
-          </Typography>
-          <Button
-            onClick={() => navigate("/add-user")}
-            variant="contained"
-            style={{ whiteSpace: "nowrap" }}
-          >
-            Add user
-          </Button>
-        </div>
-        <Table sx={{ maxWidth: 1000 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Id</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Username</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>City</TableCell>
-              <TableCell>Edit</TableCell>
-              <TableCell>Delete</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map((user) => (
-              <UserTableRow key={user.id} user={user} />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+    <>
+      <Typography component="h3">{message}</Typography>
+      <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+        <TableContainer component={Paper} style={{ maxWidth: 1000 }}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography sx={{ flex: "1 1 100%" }} variant="h6" id="tableTitle" component="div">
+              Users
+            </Typography>
+            <Button
+              onClick={() => navigate("/add-user")}
+              variant="contained"
+              style={{ whiteSpace: "nowrap" }}
+            >
+              Add user
+            </Button>
+          </div>
+          <Table sx={{ maxWidth: 1000 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Id</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Username</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>City</TableCell>
+                <TableCell>Edit</TableCell>
+                <TableCell>Delete</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {users.map((user) => (
+                <UserTableRow key={user.id} user={user} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+    </>
   );
 }
 

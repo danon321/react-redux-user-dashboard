@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Box, Button, ButtonGroup, Modal } from "@mui/material";
 import { useAppDispatch } from "../../store/hooks";
 import { deleteUser } from "../../store/user/api/deleteUser";
+import { setMessage } from "../../store/user/userSlice";
 
 interface UserDeleteButtonProps {
   userId: number;
@@ -37,6 +38,11 @@ function UserDeleteButton(props: UserDeleteButtonProps) {
 
   const deleteUserHandler = () => {
     dispatch(deleteUser(userId));
+    dispatch(setMessage(`Użytkownik ${userName} został usunięty`));
+
+    setTimeout(() => {
+      dispatch(setMessage(""));
+    }, 5000);
   };
 
   return (
