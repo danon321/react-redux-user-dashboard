@@ -3,6 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../";
 
 import { getUsers } from "./api/getUsers";
+import { deleteUser } from "./api/deleteUser";
 
 import { User, UserLoadStatus } from "../../types/User";
 
@@ -25,9 +26,6 @@ export const userSlice = createSlice({
     addUser(state, action: PayloadAction<User>) {
       state.users.push(action.payload);
     },
-    deleteUser(state, action: PayloadAction<number>) {
-      state.users = state.users.filter((user) => user.id !== action.payload);
-    },
     updateUser(state, action: PayloadAction<User>) {
       const updatedUser = action.payload;
       const index = state.users.findIndex((user: User) => user.id === updatedUser.id);
@@ -49,10 +47,13 @@ export const userSlice = createSlice({
         state.status = UserLoadStatus.failed;
         state.error = action.payload;
       });
+    builder.addCase(deleteUser.fulfilled, (state, action: PayloadAction<number>) => {
+      state.users = state.users.filter((user) => user.id !== action.payload);
+    });
   },
 });
 
-export const { addUser, deleteUser, updateUser } = userSlice.actions;
+export const { addUser, updateUser } = userSlice.actions;
 
 export const getUserState = (state: RootState) => state.user;
 

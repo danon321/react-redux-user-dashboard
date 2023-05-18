@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Box, Button, ButtonGroup, Modal } from "@mui/material";
 import { useAppDispatch } from "../../store/hooks";
-import { deleteUser } from "../../store/user/userSlice";
+import { deleteUser } from "../../store/user/api/deleteUser";
 
 interface UserDeleteButtonProps {
   userId: number;
